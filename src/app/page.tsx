@@ -6,9 +6,7 @@ export default function Home() {
 
   return (
     <div className="">
-      <Link
-        href={'/crear-usuario'}
-      >
+      <Link  href = {'/auth/crear-usuario'} >
         <button className="bg-red-500 p-2 text-white m-2 rounded-lg">ir a crear usuario</button>
       </Link>
       Index
