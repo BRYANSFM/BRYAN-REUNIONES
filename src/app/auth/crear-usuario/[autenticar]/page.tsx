@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import Input from "@/app/component/Input";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 
@@ -39,7 +39,7 @@ function Autenticar() {
     </h1>)
     : 
     // console.log("hola");
-    router.push("../../page.tsx")
+    router.push("/") 
 
     // toast.success("Validación satisfactoria")
 
