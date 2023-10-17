@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 
 type credenciales = { 
-  autenticar: string,
+  autenticar: any,
   codigo: string,
 }
 
@@ -37,10 +37,7 @@ function Autenticar() {
     <h1 className="text-[red] font-bold">
       ¡Invalido!
     </h1>)
-    : 
-    // console.log("hola");
-    router.push("/") 
-
+    : router.push("/") 
     // toast.success("Validación satisfactoria")
 
     return json;
@@ -63,7 +60,7 @@ function Autenticar() {
         onClick={
           async function(){
             await ValidarUsuario({
-              autenticar: "bryan.saul03@gmail.com",
+              autenticar: autenticar,
               codigo: codigo,
             })
           }
