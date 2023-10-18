@@ -49,7 +49,7 @@ function Autenticar() {
         Autenticacion de la cuenta
       </h1>
      <h1 className=" text-[20px] font-bold text-green-600 text-center">
-        "Por seguridad se le envio un codigo via su correo electronico para verificar su identidad"
+        Por seguridad se le envio un codigo via su correo electronico para verificar su identidad
      </h1>
      <Input
         tipoInput="text"

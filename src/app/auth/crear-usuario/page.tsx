@@ -53,7 +53,7 @@ function CrearUsuario() {
     json?.message ? 
     toast.error(
     <h1 className="text-[red] font-bold">
-      "Debe llenar todos los campos o verifique los datos introducidos"
+      Debe llenar todos los campos o verifique los datos introducidos
     </h1>)
     : 
     // toast.success("hola")
