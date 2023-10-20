@@ -20,7 +20,7 @@ function Autenticar() {
     const id = toast.loading("Cargando por favor espere");
 
     const promesaFetch = await fetch(
-      `https://reuniones-ogtic-api-06594.develop.ogtic.gob.do/api/auth/validate-user?code=${codigo}&email=${autenticar}`,
+      `https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/apis/auth/validate-user?code=${codigo}&email=${autenticar}`,
       {
         method: 'GET',
         headers: {

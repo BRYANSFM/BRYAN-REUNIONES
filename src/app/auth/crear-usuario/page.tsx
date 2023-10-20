@@ -28,7 +28,7 @@ function CrearUsuario() {
     const id = toast.loading("Cargando por favor espere");
 
     const promesaFetch = await fetch(
-      'https://reuniones-ogtic-api-06594.develop.ogtic.gob.do/api/users',
+      'https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/users',
       {
         method: 'POST',
         headers: {

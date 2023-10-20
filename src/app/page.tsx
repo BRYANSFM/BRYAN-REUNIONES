@@ -1,4 +1,5 @@
 "use client";
+// import { useQuery } from "@tanstack/react-query";
 import Link from "../../node_modules/next/link";
 import Input from "./component/Input";
 import Titulo from "./component/Titulo";
@@ -12,7 +13,7 @@ type credenciales = {
 }
 async function IniciarSesion({email, password}: credenciales) {
   const promesaFetch = await fetch(
-    'https://reuniones-ogtic-api-06594.develop.ogtic.gob.do/api/auth/login',
+    'https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/auth/login',
     {
       method: 'POST',
       headers: {
@@ -36,8 +37,6 @@ async function IniciarSesion({email, password}: credenciales) {
 export default function Home() {
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  // const [json, setJson] = useState({});
-
   return (
     <div className=" w-[500px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white p-[40px] gap-[20px]">
       <Titulo
@@ -61,11 +60,11 @@ export default function Home() {
         onChange={(e)=> setInputPassword(e.target.value) }
         placeholder="Password"
       />
-
+      
       <button 
         onClick={
         async function () {
-          // setJson(await IniciarSesion({ email: inputUsername, password: inputPassword }))
+          console.log("HOLA")
           await IniciarSesion({ email: inputUsername, password: inputPassword })
         }
         } 
