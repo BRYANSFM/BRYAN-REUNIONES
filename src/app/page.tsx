@@ -12,7 +12,7 @@ type credenciales = {
 }
 async function IniciarSesion({email, password}: credenciales) {
   const promesaFetch = await fetch(
-    'https://reuniones-ogtic-api-06594.develop.ogtic.gob.do/api/auth/login',
+    'https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/auth/login',
     {
       method: 'POST',
       headers: {
