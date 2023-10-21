@@ -4,44 +4,32 @@ import Input from "@/app/component/Input";
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from "next/navigation";
+import { ValidarUsuario } from "@/app/api/FuncionesConsultasAPI";
+import { useQuery, useMutation } from '@tanstack/react-query'
 
-type credenciales = { 
-  autenticar: any,
-  codigo: string,
-}
 
 function Autenticar() {
   const router = useRouter();
-
   const { autenticar } = useParams();
   const[codigo, setCodigo] = useState("");
+  const[id, setId] = useState<string>('');
 
-  async function ValidarUsuario({autenticar, codigo}: credenciales) {
-    const id = toast.loading("Cargando por favor espere");
-
-    const promesaFetch = await fetch(
-      `https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/auth/validate-user?code=${codigo}&email=${autenticar}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: '*/*',
-        },
-      }
-    );
-
-    const json = await promesaFetch.json();
-    toast.dismiss(id);
-
-    json?.message ? 
-    toast.error(
-    <h1 className="text-[red] font-bold">
-      ¡Invalido!
-    </h1>)
-    : router.push("/") 
-    // toast.success("Validación satisfactoria")
-
-    return json;
-  }
+  const addCrearUsuario =  useMutation({
+    mutationFn: ValidarUsuario,
+    onSuccess: () =>{ 
+      toast.dismiss(id)
+      router.push('/')
+    },
+    onError: () => {
+      toast.dismiss(id)
+      toast.error("hubo un error")
+    },
+  })
+  useEffect(()=> {
+    if(addCrearUsuario.isPending){
+      setId(toast.loading("Cargando..."))
+    }
+  },[addCrearUsuario.isPending] )
 
   return (
     <div className=" w-[600px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white px-[40px] pb-[10px] pt-[10px] gap-[10px]" >
@@ -57,13 +45,8 @@ function Autenticar() {
         placeholder="Introduzca el codigo de verificación"
       />
       <button
-        onClick={
-          async function(){
-            await ValidarUsuario({
-              autenticar: autenticar,
-              codigo: codigo,
-            })
-          }
+        onClick={() => addCrearUsuario.mutate({autenticar: autenticar,
+          codigo: codigo })  
         }
         className=" mt-[10px] hover:bg-gradient-to-l hover:from-[red]  hover:to-[#9b9bb4] bg-gradient-to-l from-red-400 to-yellow-300 p-2 text-white  text-[23px] w-[420px] h-[55px] rounded-[5px] text-center">
        Validar
