@@ -4,15 +4,8 @@ import Input from "@/app/component/Input";
 import Titulo from "@/app/component/Titulo";
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-
-type credenciales = { 
-  email: string,
-  position: string,
-  institution: string, 
-  password: string,
-  firstname: string,
-  lastname: string,
-}
+import { useMutation } from "@tanstack/react-query";
+import { CrearCuenta } from "../../api/FuncionesConsultasAPI";
 
 function CrearUsuario() {
   const router = useRouter();
@@ -24,43 +17,16 @@ function CrearUsuario() {
   const [firstname,setFirstname] = useState("");
   const [lastname,setLastname] = useState("");
 
-  async function CrearCuenta({email, position, institution, password, firstname, lastname}: credenciales) {
-    const id = toast.loading("Cargando por favor espere");
-
-    const promesaFetch = await fetch(
-      'https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/users',
-      {
-        method: 'POST',
-        headers: {
-          Accept: '*/*',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          position: position,
-          institution: institution, 
-          password: password,
-          passwordConfirmation: password,
-          firstname: firstname,
-          lastname: lastname,
-        }),
-      }
-    );
-
-    const json = await promesaFetch.json();
-    toast.dismiss(id);
-
-    json?.message ? 
-    toast.error(
-    <h1 className="text-[red] font-bold">
-      "Debe llenar todos los campos o verifique los datos introducidos"
-    </h1>)
-    : 
-    // toast.success("hola")
-    router.push(`/auth/crear-usuario/${email}`)
-
-    return json;
-  }
+  const addCrearCuenta =  useMutation({
+    mutationFn: CrearCuenta,
+    onSuccess: () =>{ 
+      // toast.success("Fue Exitoso")
+      router.push(`/auth/crear-usuario/${email}`)
+    },
+    onError: () => {
+      toast.error("hubo un error")
+    },
+  })
 
   return (
     <div className=" w-[500px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white px-[40px] pb-[30px] pt-[10px] gap-[10px]">
@@ -139,17 +105,16 @@ function CrearUsuario() {
         placeholder="Institucion"
       />
       <button 
-        onClick={
-          async function () {
-            await CrearCuenta({ 
-              email: email,
-              position: position,
-              institution: institution, 
-              password: password,
-              firstname: firstname,
-              lastname: lastname,
-            })  
-          }
+        onClick={() => 
+          addCrearCuenta.mutate({
+            email: email,
+            position: position,
+            institution: institution, 
+            password: password,
+            firstname: firstname,
+            lastname: lastname,
+
+          })
         }
         className=" mt-[5px] hover:bg-gradient-to-l hover:from-[red]  hover:to-[#9b9bb4] bg-gradient-to-l from-red-400 to-yellow-300 p-2 text-white  text-[23px] w-[420px] h-[55px] rounded-[5px] text-center">
           Sign up
