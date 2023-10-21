@@ -12,15 +12,9 @@ type credenciales ={
 }
 export const IniciarSesion = async ({email, password} : credenciales) => {
   const res = await ApiReuniones.post('/auth/login',
+    { email: email, password: password},
     {
-      email: email, 
-      password: password,
-    },
-    {
-      headers: {
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-      }
+      headers: { Accept: '*/*', 'Content-Type': 'application/json' }
     }
   )
   return res.data
@@ -47,10 +41,7 @@ export const CrearCuenta = async ({email, position, institution, password, first
       lastname: lastname,
     },
     {
-      headers: {
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-      }
+      headers: { Accept: '*/*', 'Content-Type': 'application/json'}
     }
   )
   return res.data
@@ -60,9 +51,7 @@ export const ValidarUsuario = async ({autenticar, codigo}: {autenticar: any, cod
   const res = await axios.get(
     `https://reuniones-ogtic-api-f2ca1.develop.ogtic.gob.do/api/auth/validate-user?code=${codigo}&email=${autenticar}`,
     {
-      headers: {
-        Accept: "*/*",
-      },
+      headers: {Accept: "*/*"}
     }
   );
   return res.data

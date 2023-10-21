@@ -2,7 +2,7 @@
 import { useRouter } from "../../../../node_modules/next/navigation";
 import Input from "@/app/component/Input";
 import Titulo from "@/app/component/Titulo";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useMutation } from "@tanstack/react-query";
 import { CrearCuenta } from "../../api/FuncionesConsultasAPI";
@@ -16,17 +16,26 @@ function CrearUsuario() {
   const [password,setPassword] = useState("");
   const [firstname,setFirstname] = useState("");
   const [lastname,setLastname] = useState("");
+  const[id, setId] = useState<string>();
 
   const addCrearCuenta =  useMutation({
     mutationFn: CrearCuenta,
     onSuccess: () =>{ 
       // toast.success("Fue Exitoso")
+      toast.dismiss(id)
       router.push(`/auth/crear-usuario/${email}`)
     },
     onError: () => {
+      toast.dismiss(id)
       toast.error("hubo un error")
     },
   })
+  useEffect(()=> {
+    if(addCrearCuenta.isPending){
+      setId(toast.loading("Cargando..."))
+    }
+  },[addCrearCuenta.isPending] )
+
 
   return (
     <div className=" w-[500px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white px-[40px] pb-[30px] pt-[10px] gap-[10px]">

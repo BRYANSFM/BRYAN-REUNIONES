@@ -12,17 +12,24 @@ function Autenticar() {
   const router = useRouter();
   const { autenticar } = useParams();
   const[codigo, setCodigo] = useState("");
+  const[id, setId] = useState<string>('');
 
   const addCrearUsuario =  useMutation({
     mutationFn: ValidarUsuario,
     onSuccess: () =>{ 
-      // toast.success("Fue Exitoso")
+      toast.dismiss(id)
       router.push('/')
     },
     onError: () => {
+      toast.dismiss(id)
       toast.error("hubo un error")
     },
   })
+  useEffect(()=> {
+    if(addCrearUsuario.isPending){
+      setId(toast.loading("Cargando..."))
+    }
+  },[addCrearUsuario.isPending] )
 
   return (
     <div className=" w-[600px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white px-[40px] pb-[10px] pt-[10px] gap-[10px]" >
