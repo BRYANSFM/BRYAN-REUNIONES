@@ -1,10 +1,17 @@
 'use client';
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import toast, { Toaster } from 'react-hot-toast';
 import { ReactQueryProvider } from './ReactQueryprovider'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import MuiProvider from './mui-provider';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +26,14 @@ export default function RootLayout({ children }: F) {
   return (
     <html lang="en">
       <body className='bg-gradient-to-r from-red-400 to-yellow-300 w-screen h-screen flex justify-center items-center '>
-        <ReactQueryProvider>
-          {children}
-          <Toaster />
-          <ReactQueryDevtools/>
-        </ReactQueryProvider>
+        <MuiProvider>
+
+          <ReactQueryProvider>
+            {children}
+            <Toaster />
+            <ReactQueryDevtools />
+          </ReactQueryProvider>
+        </MuiProvider>
       </body>
     </html>
   )

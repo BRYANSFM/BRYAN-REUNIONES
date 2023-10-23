@@ -1,4 +1,7 @@
+'use client'
+
 import { useForm, } from 'react-hook-form';
+import Button from '@mui/material/Button';
 
 export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
   const ClaseInput = ' p-[15px] h-[30px] w-full rounded-[5px] outline outline-[2px] outline-gray-300 placeholder:text-slate-600 focus:outline-lime-400 focus:outline-[2px]'
@@ -20,6 +23,7 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
       <div className="flex">
         <h1 className="font-bold text-dec underline underline-offset-2 text-[50px]"> Sign up </h1>
       </div>
+      <Button />
       <form className='' onSubmit={handleSubmit(Datos)}>
 
         {/* Firstname */}
