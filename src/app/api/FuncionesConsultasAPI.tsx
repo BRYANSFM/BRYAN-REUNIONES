@@ -6,13 +6,9 @@ const ApiReuniones = axios.create({
 })
 
 
-type credenciales ={
-  email: string, 
-  password: string
-}
-export const IniciarSesion = async ({email, password} : credenciales) => {
-  const res = await ApiReuniones.post('/auth/login',
-    { email: email, password: password},
+
+export const IniciarSesion = async ({body} : {body: {}}) => {
+  const res = await ApiReuniones.post('/auth/login',body,
     {
       headers: { Accept: '*/*', 'Content-Type': 'application/json' }
     }
@@ -20,26 +16,8 @@ export const IniciarSesion = async ({email, password} : credenciales) => {
   return res.data
 }
 
-type Datos = {
-  email: string, 
-  position: string, 
-  institution: string, 
-  password: string, 
-  firstname: string, 
-  lastname: string,
-}
-
-export const CrearCuenta = async ({email, position, institution, password, firstname, lastname}: Datos) => {
-  const res = await ApiReuniones.post('/users',
-    {
-      email: email,
-      position: position,
-      institution: institution, 
-      password: password,
-      passwordConfirmation: password,
-      firstname: firstname,
-      lastname: lastname,
-    },
+export const CrearCuenta = async ({body} : {body: any}) => {
+  const res = await ApiReuniones.post('/users',body,
     {
       headers: { Accept: '*/*', 'Content-Type': 'application/json'}
     }
