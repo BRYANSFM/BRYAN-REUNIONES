@@ -1,6 +1,6 @@
-import { useForm,  } from 'react-hook-form';
+import { useForm, } from 'react-hook-form';
 
-export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
+export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
   const ClaseInput = ' p-[15px] h-[30px] w-full rounded-[5px] outline outline-[2px] outline-gray-300 placeholder:text-slate-600 focus:outline-lime-400 focus:outline-[2px]'
   const ClaseSpan = "text-[red] text-[15px] block"
   const {
@@ -13,6 +13,8 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
   } = useForm();
   console.log(errors);
 
+
+
   return (
     <>
       <div className="flex">
@@ -21,10 +23,10 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
       <form className='' onSubmit={handleSubmit(Datos)}>
 
         {/* Firstname */}
-        <label  className="font-bold underline underline-offset-2   "> 
+        <label className="font-bold underline underline-offset-2   ">
           Firstname
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="text"
           placeholder='Firstname'
@@ -46,10 +48,10 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         {errors.firstname && <span className={ClaseSpan}>{errors.firstname.message}</span>}
 
         {/* Lastname */}
-        <label  className="font-bold underline underline-offset-2   "> 
+        <label className="font-bold underline underline-offset-2   ">
           Lastname
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="text"
           placeholder='Lastname'
@@ -63,10 +65,10 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         {errors.lastname && <span className={ClaseSpan}>{errors.lastname.message}</span>}
 
         {/* Email */}
-        <label  className="font-bold underline underline-offset-2   "> 
+        <label className="font-bold underline underline-offset-2   ">
           Email
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="email"
           placeholder='Email'
@@ -84,14 +86,14 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         {errors.email && <span className={ClaseSpan}>{errors.email.message}</span>}
 
         {/* Password */}
-        <label className="font-bold underline underline-offset-2 "> 
+        <label className="font-bold underline underline-offset-2 ">
           Password
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="password"
           placeholder='Password'
-          {...register('password',{
+          {...register('password', {
             required: {
               value: true,
               message: 'Password is required',
@@ -104,29 +106,29 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         />
         {errors.password && <span className={ClaseSpan}>{errors.password.message}</span>}
 
-        <label className="font-bold underline underline-offset-2 "> 
-         Password Confirmation
+        <label className="font-bold underline underline-offset-2 ">
+          Password Confirmation
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="password"
           placeholder='Password Confirmation'
-          {...register('passwordConfirmation',{
+          {...register('passwordConfirmation', {
             required: {
               value: true,
               message: 'Password is required',
             },
-            validate: (value) => 
-            value === watch('password') || 'Passwords do not matchs',
+            validate: (value) =>
+              value === watch('password') || 'Passwords do not matchs',
           })}
         />
         {errors.passwordConfirmation && <span className={ClaseSpan}>{errors.passwordConfirmation.message}</span>}
 
         {/* Position */}
-        <label  className="font-bold underline underline-offset-2   "> 
+        <label className="font-bold underline underline-offset-2   ">
           Position
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="text"
           placeholder='Position'
@@ -140,10 +142,10 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         {errors.position && <span className={ClaseSpan}>{errors.position.message}</span>}
 
         {/* Institution */}
-        <label  className="font-bold underline underline-offset-2   "> 
+        <label className="font-bold underline underline-offset-2   ">
           Institution
         </label>
-        <input 
+        <input
           className={ClaseInput}
           type="text"
           placeholder='Institution'
@@ -156,7 +158,7 @@ export const FormularioSIGNUP = ({Datos} : {Datos: (event: {}) => any}) => {
         />
         {errors.institution && <span className={ClaseSpan}>{errors.institution.message}</span>}
 
-        <button 
+        <button
           className="  mt-[10px] hover:bg-[#083f48] bg-[#17b1c8] p-2 text-white  text-[23px] w-full h-[50px] rounded-[5px] flex justify-center items-center">Log in
         </button>
         {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
