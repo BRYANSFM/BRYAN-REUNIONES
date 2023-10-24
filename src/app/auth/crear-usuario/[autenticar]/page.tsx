@@ -35,7 +35,7 @@ function Autenticar() {
     },
     onError: () => {
       toast.dismiss(id)
-      toast.error("hubo un error")
+      toast.error("Error")
     },
   })
   useEffect(() => {
@@ -59,7 +59,7 @@ function Autenticar() {
         <TextField
           margin="dense"  
           // fullWidth
-          label="Firstname" 
+          label="Code" 
           type='number'
           error={errors?.code ? true : false} 
           helperText={errors.code && errors.code.message} 

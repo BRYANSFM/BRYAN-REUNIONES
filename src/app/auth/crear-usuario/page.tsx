@@ -22,7 +22,7 @@ function CrearUsuario() {
     },
     onError: () => {
       toast.dismiss(id)
-      toast.error("hubo un error")
+      toast.error("Error")
     },
   })
   useEffect(()=> {
