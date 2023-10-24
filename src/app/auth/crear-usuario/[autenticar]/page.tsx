@@ -59,7 +59,7 @@ function Autenticar() {
         <TextField
           margin="dense"  
           // fullWidth
-          label="Code" 
+          // label="Code" 
           type='number'
           error={errors?.code ? true : false} 
           helperText={errors.code && errors.code.message} 
