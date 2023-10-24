@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { ValidarUsuario } from "@/app/api/FuncionesConsultasAPI";
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form';
+import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button';
 
 
 function Autenticar() {
@@ -54,26 +56,39 @@ function Autenticar() {
         console.log(data.code)
         addAutenticar.mutate({ autenticar: autenticar, codigo: data.code })
       })}>
-        <input
-          className={ClaseInput}
-          type="number"
-          placeholder="Verification code"
+        <TextField
+          margin="dense"  
+          // fullWidth
+          label="Firstname" 
+          type='number'
+          error={errors?.code ? true : false} 
+          helperText={errors.code && errors.code.message} 
+          color="success"
+          variant="filled"
+          // size='small'
           {...register('code', {
             required: {
               value: true,
               message: 'Code is required'
             },
             pattern: {
-              value: /^\d{6}$/,
+              value: /^[0-9]{6}$/,
               message: 'Must be 6 numbers'
             }
           })}
         />
-        {errors.code && <span className={ClaseSpan}>{errors.code.message}</span>}
+
         <button
-          className=" mt-[10px] hover:bg-gradient-to-l hover:from-[red]  hover:to-[#9b9bb4] bg-gradient-to-l from-red-400 to-yellow-300 p-2 text-white  text-[23px] w-[420px] h-[55px] rounded-[5px] text-center">
+          className=" mt-[10px] hover:bg-gradient-to-l hover:from-[red]  hover:to-[#9b9bb4] bg-gradient-to-l from-red-400 to-yellow-300 p-2 text-white  text-[23px] w-[211.5px] h-[55px] rounded-[5px] text-center">
           Validate
         </button>
+        {/* <Button 
+          variant="outlined"
+          color="success"
+          className="mt-[10px] p-2 w-[211.5px] h-[55px] text-[23px]"
+        >
+          Validate
+        </Button> */}
       </form>
 
     </div>

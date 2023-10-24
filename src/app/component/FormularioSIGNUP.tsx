@@ -1,5 +1,5 @@
 'use client'
-
+import TextField from "@mui/material/TextField";
 import { useForm, } from 'react-hook-form';
 import Button from '@mui/material/Button';
 
@@ -26,14 +26,15 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
       <Button />
       <form className='' onSubmit={handleSubmit(Datos)}>
 
-        {/* Firstname */}
-        <label className="font-bold underline underline-offset-2   ">
-          Firstname
-        </label>
-        <input
-          className={ClaseInput}
-          type="text"
-          placeholder='Firstname'
+      <TextField
+          margin="dense"  
+          fullWidth
+          label="Firstname" 
+          type='text'
+          error={errors?.firstname ? true : false} 
+          helperText={errors.firstname && errors.firstname.message} 
+          color="success"
+          size='small'
           {...register('firstname', {
             required: {
               value: true,
@@ -49,16 +50,18 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {errors.firstname && <span className={ClaseSpan}>{errors.firstname.message}</span>}
+
 
         {/* Lastname */}
-        <label className="font-bold underline underline-offset-2   ">
-          Lastname
-        </label>
-        <input
-          className={ClaseInput}
-          type="text"
-          placeholder='Lastname'
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Lastname" 
+          type='text'
+          error={errors?.lastname ? true : false} 
+          helperText={errors.lastname && errors.lastname.message} 
+          color="success"
+          size='small'
           {...register('lastname', {
             required: {
               value: true,
@@ -66,16 +69,18 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {errors.lastname && <span className={ClaseSpan}>{errors.lastname.message}</span>}
+
 
         {/* Email */}
-        <label className="font-bold underline underline-offset-2   ">
-          Email
-        </label>
-        <input
-          className={ClaseInput}
-          type="email"
-          placeholder='Email'
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Email" 
+          type='text'
+          error={errors?.email ? true : false} 
+          helperText={errors.email && errors.email.message} 
+          color="success"
+          size='small'
           {...register('email', {
             required: {
               value: true,
@@ -87,55 +92,52 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {errors.email && <span className={ClaseSpan}>{errors.email.message}</span>}
 
         {/* Password */}
-        <label className="font-bold underline underline-offset-2 ">
-          Password
-        </label>
-        <input
-          className={ClaseInput}
-          type="password"
-          placeholder='Password'
-          {...register('password', {
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Password" 
+          type='password'
+          error={errors?.password ? true : false} 
+          helperText={errors.password && errors.password.message } 
+          color="success"
+          size='small'
+          {...register('password',{
             required: {
               value: true,
               message: 'Password is required',
-            },
-            pattern: {
-              value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message: 'The password must have at least one capital letter and numbers'
             }
           })}
         />
-        {errors.password && <span className={ClaseSpan}>{errors.password.message}</span>}
-
-        <label className="font-bold underline underline-offset-2 ">
-          Password Confirmation
-        </label>
-        <input
-          className={ClaseInput}
-          type="password"
-          placeholder='Password Confirmation'
-          {...register('passwordConfirmation', {
+        {/* PasswordConfirmation */}
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Password Confirmation" 
+          type='password'
+          error={errors?.passwordConfirmation ? true : false} 
+          helperText={errors.passwordConfirmation && errors.passwordConfirmation.message } 
+          color="success"
+          size='small'
+          {...register('passwordConfirmation',{
             required: {
               value: true,
               message: 'Password is required',
             },
-            validate: (value) =>
-              value === watch('password') || 'Passwords do not matchs',
+            validate: (value) =>  value === watch('password')|| 'It must be the same as the password',
           })}
-        />
-        {errors.passwordConfirmation && <span className={ClaseSpan}>{errors.passwordConfirmation.message}</span>}
-
+        /> 
         {/* Position */}
-        <label className="font-bold underline underline-offset-2   ">
-          Position
-        </label>
-        <input
-          className={ClaseInput}
-          type="text"
-          placeholder='Position'
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Position" 
+          type='text'
+          error={errors?.position ? true : false} 
+          helperText={errors.position && errors.position.message} 
+          color="success"
+          size='small'
           {...register('position', {
             required: {
               value: true,
@@ -143,16 +145,16 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {errors.position && <span className={ClaseSpan}>{errors.position.message}</span>}
-
         {/* Institution */}
-        <label className="font-bold underline underline-offset-2   ">
-          Institution
-        </label>
-        <input
-          className={ClaseInput}
-          type="text"
-          placeholder='Institution'
+        <TextField
+          margin="dense"  
+          fullWidth
+          label="Institution" 
+          type='text'
+          error={errors?.institution ? true : false} 
+          helperText={errors.institution && errors.institution.message} 
+          color="success"
+          size='small'
           {...register('institution', {
             required: {
               value: true,
@@ -160,11 +162,17 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {errors.institution && <span className={ClaseSpan}>{errors.institution.message}</span>}
+        {/* <Button 
+          variant="outlined"
+           color="success"
+           className=" mt-[10px] p-2 text-[23px] w-full h-[50px] flex justify-center items-center">
+          Sign up
+        </Button> */}
 
         <button
-          className="  mt-[10px] hover:bg-[#083f48] bg-[#17b1c8] p-2 text-white  text-[23px] w-full h-[50px] rounded-[5px] flex justify-center items-center">Log in
+          className="  mt-[10px] hover:bg-[#083f48] bg-[#17b1c8] p-2 text-white  text-[23px] w-full h-[50px] rounded-[5px] flex justify-center items-center">Sign Up
         </button>
+        
         {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
       </form>
     </>

@@ -27,7 +27,6 @@ export default function RootLayout({ children }: F) {
     <html lang="en">
       <body className='bg-gradient-to-r from-red-400 to-yellow-300 w-screen h-screen flex justify-center items-center '>
         <MuiProvider>
-
           <ReactQueryProvider>
             {children}
             <Toaster />

@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useMutation } from "@tanstack/react-query";
 import { IniciarSesion } from "./api/FuncionesConsultasAPI";
 import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button';
 
 export default function Home() {
   const [id, setId] = useState<string>();
@@ -15,11 +16,11 @@ export default function Home() {
     mutationFn: IniciarSesion,
     onSuccess: () => {
       toast.dismiss(id)
-      toast.success("Fue Exitoso")
+      toast.success("Successful login")
     },
     onError: () => {
       toast.dismiss(id)
-      toast.error("hubo un error")
+      toast.error("Invalid User")
     },
   })
   useEffect(() => {
@@ -29,14 +30,17 @@ export default function Home() {
   }, [addIniciarSesion.isPending])
 
   return (
-    <div className=" w-[400px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white p-[40px] gap-[20px]">
+    <div className=" w-[400px] min-h-[300px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white p-[30px]  ">
       <FormularioLOGIN
         Datos={(data) => addIniciarSesion.mutate({ body: data })}
       />
-      <TextField label="Outlined" error={true} helperText='klk' />
-
-      <Link href={'/auth/crear-usuario'} >
-        <button className=" hover:text-black hover:underline hover:underline-offset-2 text-[#808080] text-[19px] font-bold  text-center ">or, sign up</button>
+      
+      <Link href={'/auth/crear-usuario'} >\
+        <Button 
+          color="secondary"
+          className="text-[#808080] text-[19px] font-bold mt-[20px]">
+          or, sign up
+        </Button>
       </Link>
     </div>
   )
