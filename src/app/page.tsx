@@ -35,7 +35,7 @@ export default function Home() {
         Datos={(data) => addIniciarSesion.mutate({ body: data })}
       />
       
-      <Link href={'/auth/crear-usuario'} >\
+      <Link href={'/auth/crear-usuario'} >
         <Button 
           color="secondary"
           className="text-[#808080] text-[19px] font-bold mt-[20px]">

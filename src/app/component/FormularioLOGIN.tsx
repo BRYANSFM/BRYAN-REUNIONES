@@ -1,6 +1,8 @@
 import { useForm,  } from 'react-hook-form';
 import TextField from "@mui/material/TextField";
 import Input from '@mui/material/Input';
+import Button from '@mui/material/Button';
+
 
 const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
   const ClaseInput = '   p-[15px] h-[30px] w-full rounded-[5px] outline outline-[2px] outline-gray-300 placeholder:text-slate-600 focus:outline-lime-400 focus:outline-[2px]'
@@ -57,10 +59,14 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
             }
           })}
         /> 
-
-        <button 
-          className="  mt-[10px] hover:bg-[#083f48] bg-[#17b1c8] p-2 text-white  text-[23px] w-full h-[50px] rounded-[5px] flex justify-center items-center">Log in
-        </button>
+        <Button 
+          color='success'
+          variant='contained'
+          fullWidth
+          type='submit'
+          className="p-2 text-green-600 h-[50px]  text-[25px] font-bold mt-[10px] flex justify-center items-center">
+          Log in
+        </Button>
       </form>
     </>
   )

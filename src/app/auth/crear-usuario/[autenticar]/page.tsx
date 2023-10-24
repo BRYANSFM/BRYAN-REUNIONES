@@ -59,7 +59,7 @@ function Autenticar() {
         <TextField
           margin="dense"  
           // fullWidth
-          // label="Code" 
+          label="Code" 
           type='number'
           error={errors?.code ? true : false} 
           helperText={errors.code && errors.code.message} 
@@ -78,17 +78,14 @@ function Autenticar() {
           })}
         />
 
-        <button
-          className=" mt-[10px] hover:bg-gradient-to-l hover:from-[red]  hover:to-[#9b9bb4] bg-gradient-to-l from-red-400 to-yellow-300 p-2 text-white  text-[23px] w-[211.5px] h-[55px] rounded-[5px] text-center">
-          Validate
-        </button>
-        {/* <Button 
-          variant="outlined"
+        <Button 
+          variant="contained"
           color="success"
-          className="mt-[10px] p-2 w-[211.5px] h-[55px] text-[23px]"
+          type="submit"
+          className=" text-green-600 mt-[10px] p-2 w-[211.5px] h-[55px] text-[23px]"
         >
           Validate
-        </Button> */}
+        </Button>
       </form>
 
     </div>

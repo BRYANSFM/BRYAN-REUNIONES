@@ -162,18 +162,13 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        {/* <Button 
-          variant="outlined"
+        <Button 
+          variant="contained"
            color="success"
-           className=" mt-[10px] p-2 text-[23px] w-full h-[50px] flex justify-center items-center">
+           type="submit"
+           className=" mt-[10px] p-2 text-[23px] text-green-600 w-full h-[50px] flex justify-center items-center">
           Sign up
-        </Button> */}
-
-        <button
-          className="  mt-[10px] hover:bg-[#083f48] bg-[#17b1c8] p-2 text-white  text-[23px] w-full h-[50px] rounded-[5px] flex justify-center items-center">Sign Up
-        </button>
-        
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
+        </Button>
       </form>
     </>
   )
