@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "../../../../node_modules/next/navigation";
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { CrearCuenta } from "../../api/FuncionesConsultasAPI";
 import {FormularioSIGNUP} from "../../component/FormularioSIGNUP";
 import Button from '@mui/material/Button';
@@ -27,12 +27,12 @@ function CrearUsuario() {
   })
   useEffect(()=> {
     if(addCrearCuenta.isPending){
-      setId(toast.loading("Cargando..."))
+      setId(toast.loading("Loading..."))
     }
   },[addCrearCuenta.isPending] )
 
   return (
-    <div className="w-[400px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center bg-white px-[40px] pb-[40px] pt-[5px] ">
+    <div className="w-[400px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center bg-white px-[40px] pb-[10px] pt-[5px] mb-[30px] ">
       
       <FormularioSIGNUP
         Datos = {(data) => {
@@ -42,7 +42,6 @@ function CrearUsuario() {
         }}
       />
       <Link href={'/'}>
-        {/* <button className=" hover:text-black hover:underline hover:underline-offset-2 text-[#808080] mt-[10px] text-[19px] font-bold  text-center ">Return to login</button> */}
         <Button 
           color="secondary"
           className="text-[#808080] mt-[10px] text-[19px] font-bold  text-center">

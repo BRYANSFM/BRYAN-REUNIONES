@@ -25,7 +25,7 @@ type F = { children: any }
 export default function RootLayout({ children }: F) {
   return (
     <html lang="en">
-      <body className='bg-gradient-to-r from-red-400 to-yellow-300 w-screen h-screen flex justify-center items-center '>
+      <body className='bg-slate-300 w-screen h-screen flex justify-center items-center flex-wrap p-[40px]'>
         <MuiProvider>
           <ReactQueryProvider>
             {children}

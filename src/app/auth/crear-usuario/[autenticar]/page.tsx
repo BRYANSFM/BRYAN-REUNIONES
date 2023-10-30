@@ -40,7 +40,7 @@ function Autenticar() {
   })
   useEffect(() => {
     if (addAutenticar.isPending) {
-      setId(toast.loading("Cargando..."))
+      setId(toast.loading("Loading..."))
     }
   }, [addAutenticar.isPending])
 

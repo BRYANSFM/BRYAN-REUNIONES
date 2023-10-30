@@ -8,15 +8,18 @@ import { useMutation } from "@tanstack/react-query";
 import { IniciarSesion } from "./api/FuncionesConsultasAPI";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [id, setId] = useState<string>();
+  const router = useRouter();
 
   const addIniciarSesion = useMutation({
     mutationFn: IniciarSesion,
     onSuccess: () => {
       toast.dismiss(id)
-      toast.success("Successful login")
+      // toast.success("Successful login")
+      router.push('/SalonesDeConferencia')
     },
     onError: () => {
       toast.dismiss(id)
@@ -25,7 +28,7 @@ export default function Home() {
   })
   useEffect(() => {
     if (addIniciarSesion.isPending) {
-      setId(toast.loading("Cargando..."))
+      setId(toast.loading("Loading..."))
     }
   }, [addIniciarSesion.isPending])
 
