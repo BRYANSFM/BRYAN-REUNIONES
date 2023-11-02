@@ -9,6 +9,8 @@ export const IniciarSesion = async ({body} : {body: {}}) => {
     }
   )
   cookie.set('token', res.data.token)
+  cookie.set('idUser',res.data.user.id.toString() )
+  console.log(cookie.get("idUser"))
   return res.data
 }
 

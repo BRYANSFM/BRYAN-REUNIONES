@@ -27,6 +27,7 @@ axios.interceptors.response.use(
     const { data } = error.response;
     if (data.statusCode === 401 && data.message === 'Unauthorized') {
       Cookies.remove(TOKEN_KEY);
+      Cookies.remove('idUser')
       window.location.href = '/'
     }
     return Promise.reject(error);
