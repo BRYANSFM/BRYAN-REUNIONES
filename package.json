@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.1",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -28,6 +30,7 @@
     "dayjs": "^1.11.10",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.4",
+    "framer-motion": "^10.16.4",
     "js-cookie": "^3.0.5",
     "next": "13.5.4",
     "postcss": "8.4.31",

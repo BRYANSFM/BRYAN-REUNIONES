@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Box from '@mui/system/Box';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import  LogoOGTIC  from '../LogoOGTIC/logo.webp'
 import axios from '@/axios'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import React, { useState, useEffect } from 'react';
@@ -19,7 +18,8 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import {AiFillFilter, AiOutlineClear} from "react-icons/ai"
+import {AiFillFilter, AiOutlineClear} from "react-icons/ai";
+import Link from 'next/link';
 
 
 
@@ -41,11 +41,6 @@ function substringAndReplace({fecha, t} : {fecha: string, t: string}) {
   // Devuelve la cadena con el '-' reemplazado por '/'
   return replacedSubstring;
 }
-function encontrarNumeroEnCadena(cadena: string): string | null {
-  const numerosEncontrados = cadena.match(/\d+/); // Busca un número en la cadena
-
-  return numerosEncontrados ? numerosEncontrados[0] : null
-}
 
 
 const SalonesDeConferencia = () => {
@@ -62,13 +57,18 @@ const SalonesDeConferencia = () => {
   const params : Object = {
     take: 2,
     page: noPage,
-    sort: 'ASC',
+    sort: 'DESC',
     meeting_type: 'Externa',
     as: as,
     start_date: start_dateValueCalendarFilter,
     end_date: end_dateValueCalendarFilter,
   } 
-
+  const getReuniones = async () => {
+    const res = await axios.get( `/meetings`, {params: params});
+    const { data } = res.data
+    return data
+  }
+  
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -78,11 +78,6 @@ const SalonesDeConferencia = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   
-  const getReuniones = async () => {
-    const res = await axios.get( `/meetings`, {params: params});
-    const { data } = res.data
-    return data
-  }
   
   const {isLoading , data , isError , error, refetch, } = useQuery({
     queryKey: ['reuniones',params],
@@ -106,11 +101,6 @@ const SalonesDeConferencia = () => {
           SIGN OFF
         </Button>
       </Stack>
-      <img 
-        src={LogoOGTIC.src} 
-        alt="Logo del OGTIC" 
-        className='w-[300px]' 
-      />
 
       <h1 className='text-[35px] font-extrabold underline underline-offset-2'> 
         Salones de conferencias
@@ -126,15 +116,17 @@ const SalonesDeConferencia = () => {
           Aqui presentaremos todas las reuniones y minutas realizadas
         </h1>
         
-        <Button 
-          className='gap-[10px] w-[300px] bg-[purple]' 
-          color="info" 
-          size='large' 
-          variant='contained'
-        >
-          <ControlPointIcon fontSize='medium'/>
-          CREAR NUEVA
-        </Button>
+        <Link href={'../CreacionReuniones'}>
+          <Button 
+            className='gap-[10px] w-[300px] bg-[purple]' 
+            color="info" 
+            size='large' 
+            variant='contained'
+          >
+            <ControlPointIcon fontSize='medium'/>
+            CREAR NUEVA
+          </Button>
+        </Link>
       </Stack>
       
       <Box sx={{
@@ -399,8 +391,7 @@ const SalonesDeConferencia = () => {
                 >
                   <ApartmentIcon sx={{fontSize: '30px'}} />
                   <h1 className='font-bold mx-[5px]'>
-                    Salon 
-                    {encontrarNumeroEnCadena(reuniones.room.name)}
+                    {reuniones.room.name}
                   </h1>
                 </Box>
               </Grid>

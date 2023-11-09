@@ -11,6 +11,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { Providers } from "./providers";
+
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -26,13 +28,16 @@ export default function RootLayout({ children }: F) {
   return (
     <html lang="en">
       <body className='bg-slate-300 w-screen h-screen flex justify-center items-center flex-wrap p-[40px]'>
+      <Providers>
         <MuiProvider>
           <ReactQueryProvider>
             {children}
+
             <Toaster />
             <ReactQueryDevtools />
           </ReactQueryProvider>
         </MuiProvider>
+        </Providers>
       </body>
     </html>
   )

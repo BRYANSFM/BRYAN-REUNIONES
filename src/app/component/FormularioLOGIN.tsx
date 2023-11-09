@@ -5,8 +5,6 @@ import Button from '@mui/material/Button';
 
 
 const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
-  const ClaseInput = '   p-[15px] h-[30px] w-full rounded-[5px] outline outline-[2px] outline-gray-300 placeholder:text-slate-600 focus:outline-lime-400 focus:outline-[2px]'
-  const ClaseSpan = "text-[red] text-[15px] block"
   const {
     register,
     handleSubmit,
@@ -14,7 +12,12 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
     watch,
     setValue,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues:{
+      password: '',
+      email: ''
+    }
+  });
   console.log(errors)
 
   return (
@@ -26,11 +29,11 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
           margin="dense"  
           fullWidth
           label="Email" 
-          type='text'
-          error={errors?.email ? true : false} 
-          helperText={errors.email && errors.email.message} 
           color="success"
           size='small'
+          error={errors?.email ? true : false} 
+          type='text'
+          helperText={errors.email && errors.email.message} 
           {...register('email', {
             required: {
               value: true,
