@@ -26,13 +26,13 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
       <Button />
       <form className='' onSubmit={handleSubmit(Datos)}>
 
-      <TextField
-          margin="dense"  
+        <TextField
+          margin="dense"
           fullWidth
-          label="Firstname" 
+          label="Firstname"
           type='text'
-          error={errors?.firstname ? true : false} 
-          helperText={errors.firstname && errors.firstname.message} 
+          error={errors?.firstname ? true : false}
+          helperText={errors.firstname && errors.firstname.message}
           color="success"
           size='small'
           {...register('firstname', {
@@ -54,12 +54,12 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
 
         {/* Lastname */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Lastname" 
+          label="Lastname"
           type='text'
-          error={errors?.lastname ? true : false} 
-          helperText={errors.lastname && errors.lastname.message} 
+          error={errors?.lastname ? true : false}
+          helperText={errors.lastname && errors.lastname.message}
           color="success"
           size='small'
           {...register('lastname', {
@@ -73,12 +73,12 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
 
         {/* Email */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Email" 
+          label="Email"
           type='text'
-          error={errors?.email ? true : false} 
-          helperText={errors.email && errors.email.message} 
+          error={errors?.email ? true : false}
+          helperText={errors.email && errors.email.message}
           color="success"
           size='small'
           {...register('email', {
@@ -95,15 +95,15 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
 
         {/* Password */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Password" 
+          label="Password"
           type='password'
-          error={errors?.password ? true : false} 
-          helperText={errors.password && errors.password.message } 
+          error={errors?.password ? true : false}
+          helperText={errors.password && errors.password.message}
           color="success"
           size='small'
-          {...register('password',{
+          {...register('password', {
             required: {
               value: true,
               message: 'Password is required',
@@ -112,30 +112,30 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
         />
         {/* PasswordConfirmation */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Password Confirmation" 
+          label="Password Confirmation"
           type='password'
-          error={errors?.passwordConfirmation ? true : false} 
-          helperText={errors.passwordConfirmation && errors.passwordConfirmation.message } 
+          error={errors?.passwordConfirmation ? true : false}
+          helperText={errors.passwordConfirmation && errors.passwordConfirmation.message}
           color="success"
           size='small'
-          {...register('passwordConfirmation',{
+          {...register('passwordConfirmation', {
             required: {
               value: true,
               message: 'Password is required',
             },
-            validate: (value) =>  value === watch('password')|| 'It must be the same as the password',
+            validate: (value: any) => value === watch('password') || 'It must be the same as the password',
           })}
-        /> 
+        />
         {/* Position */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Position" 
+          label="Position"
           type='text'
-          error={errors?.position ? true : false} 
-          helperText={errors.position && errors.position.message} 
+          error={errors?.position ? true : false}
+          helperText={errors.position && errors.position.message}
           color="success"
           size='small'
           {...register('position', {
@@ -147,12 +147,12 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
         />
         {/* Institution */}
         <TextField
-          margin="dense"  
+          margin="dense"
           fullWidth
-          label="Institution" 
+          label="Institution"
           type='text'
-          error={errors?.institution ? true : false} 
-          helperText={errors.institution && errors.institution.message} 
+          error={errors?.institution ? true : false}
+          helperText={errors.institution && errors.institution.message}
           color="success"
           size='small'
           {...register('institution', {
@@ -162,11 +162,11 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
             },
           })}
         />
-        <Button 
+        <Button
           variant="contained"
-           color="success"
-           type="submit"
-           className=" mt-[10px] p-2 text-[23px] text-green-600 w-full h-[50px] flex justify-center items-center">
+          color="success"
+          type="submit"
+          className=" mt-[10px] p-2 text-[23px] text-green-600 w-full h-[50px] flex justify-center items-center">
           Sign up
         </Button>
       </form>

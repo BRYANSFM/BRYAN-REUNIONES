@@ -123,7 +123,7 @@ function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
             renderValue={(selected: any) => (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {selected.map((value: any) => (
-                  <Chip Outlined key={value} label={value} />
+                  <Chip key={value} label={value} />
                 ))}
               </Box>
             )}

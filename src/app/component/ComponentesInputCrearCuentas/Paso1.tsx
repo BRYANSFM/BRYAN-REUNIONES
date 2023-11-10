@@ -10,7 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
-import dayjs,{ Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useRouter } from 'next/navigation';
 import axios from '@/axios'
@@ -18,29 +18,37 @@ import Link from 'next/link';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useState } from 'react';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const getRooms = async () => {
-  const res = await axios.get( '/meeting-rooms',);
+  const res = await axios.get('/meeting-rooms',);
   const { data } = res.data
-  
+
   return data
 }
 
-function Paso1({handleNext} : {handleNext: (event: any) => any}) {
+function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
+
+  const schema = z.object({
+    room: z.number().min(1, { message: 'This field is required' }),
+  })
+
   const outerTheme = useTheme();
-  const {isLoading , data , isError , error, refetch, } = useQuery({
+  const { isLoading, data, isError, error, refetch, } = useQuery({
     queryKey: ['rooms'],
     queryFn: getRooms,
   });
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     watch,
     setValue,
     reset,
   } = useForm({
-    defaultValues:{
+    resolver: zodResolver(schema),
+    defaultValues: {
       room: '',
       date: null,
       start_time: null,
@@ -48,7 +56,7 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
     }
   });
   console.log(errors)
-  
+
   const theme = (theme: any) => createTheme({
     ...theme,
     components: {
@@ -72,10 +80,10 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
       <form className=' flex gap-5 flex-col w-[450px]'
         onSubmit={handleSubmit(handleNext)}
       >
-        <FormControl fullWidth sx={{ minWidth: 120}} size="small">
+        <FormControl fullWidth sx={{ minWidth: 120 }} size="small">
           <InputLabel color='primary'>room</InputLabel>
           <Select
-            sx={{fontWeight: "bold"}}
+            sx={{ fontWeight: "bold" }}
             defaultValue={20}
             color='primary'
             size='medium'
@@ -89,9 +97,9 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
               // validate: (value) => !value  || 'room is required',
             })}
           >
-            {data?.map((rooms: any)=>(
-              <MenuItem 
-                key={rooms.name} 
+            {data?.map((rooms: any) => (
+              <MenuItem
+                key={rooms.name}
                 value={rooms.id}
               >
                 {rooms.name}
@@ -99,15 +107,15 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
             ))}
           </Select>
         </FormControl>
-        {/* {errors.room && (
+        {errors.room && (
           <span className='text-red-700'>{errors.room.message}</span>
-        )} */}
+        )}
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer sx={{width: "100%"}} components={['DatePicker']}>
-              <DatePicker  
-                sx={{width: "100%"}}  
-                label="Hora" 
+            <DemoContainer sx={{ width: "100%" }} components={['DatePicker']}>
+              <DatePicker
+                sx={{ width: "100%" }}
+                label="Hora"
                 // {...register('date', {
                 //   // required: {
                 //   //   value: true,
@@ -117,7 +125,7 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
                 // })}
                 // value={pruebadate}
                 onChange={(e: any) => {
-                  if(e!=null){
+                  if (e != null) {
                     setValue("date", e.format('YYYY-MM-DD'))
                     // console.log(watch('date').format('YYYY-MM-DD'))
                   }
@@ -129,10 +137,10 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
             <span className='text-red-700'>{errors.date.message}</span>
           )} */}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer sx={{width: "100%"}} components={['TimePicker']}>
-              <TimePicker  
-                sx={{width: "100%"}}  
-                label="Hora de inicio" 
+            <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
+              <TimePicker
+                sx={{ width: "100%" }}
+                label="Hora de inicio"
                 // {...register('start_time', {
                 //   // required: {
                 //   //   value: true,
@@ -141,7 +149,7 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
                 //   // validate: (value) => value != null || 'Hora de inicio is required',
                 // })}
                 onChange={(e: any) => {
-                  if(e!=null){
+                  if (e != null) {
                     setValue("start_time", e.format('HH:mm'))
                     // console.log(watch('date').format('HH:mm'))
                   }
@@ -156,9 +164,9 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
 
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer sx={{width: "100%"}} components={['TimePicker']}>
-              <TimePicker  
-                sx={{width: "100%"}}  
+            <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
+              <TimePicker
+                sx={{ width: "100%" }}
                 label="Hora de cierre"
                 // {...register('end_time', {
                 //   // required: {
@@ -168,7 +176,7 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
                 //   // validate: (value) => value != null || 'Hora de cierre is required',
                 // })}
                 onChange={(e: any) => {
-                  if(e!=null){
+                  if (e != null) {
                     setValue("end_time", e.format('HH:mm'))
                     // console.log(watch('date').format('HH:mm'))
                   }
@@ -180,21 +188,21 @@ function Paso1({handleNext} : {handleNext: (event: any) => any}) {
             <span className='text-red-700'>{errors.end_time.message}</span>
           )} */}
         </ThemeProvider>
-        <Button 
+        <Button
           fullWidth
           className='h-12 mt-2 bg-blue-500 text-xl'
-          type='submit' 
-          variant='contained' 
+          type='submit'
+          variant='contained'
           color='info'
         >
           Siguiente
         </Button>
       </form>
       <Link href={'../SalonesDeConferencia'}>
-        <Button 
+        <Button
           className='h-12 bg-white w-[450px] mb-5 mt-2 text-xl'
-          type='submit' 
-          variant='text' 
+          type='submit'
+          variant='text'
           color='inherit'
         >
           Cancelar
