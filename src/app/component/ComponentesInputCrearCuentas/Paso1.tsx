@@ -47,7 +47,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
     setValue,
     reset,
   } = useForm({
-    resolver: zodResolver(schema),
+    // resolver: zodResolver(schema),
     defaultValues: {
       room: '',
       date: null,
