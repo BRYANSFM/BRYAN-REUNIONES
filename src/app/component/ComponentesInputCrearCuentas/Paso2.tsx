@@ -36,7 +36,7 @@ const names = [
   "esther.diaz@icloud.com",
   "carlos.romero@protonmail.com",
 ];
-function getStyles({name, personName, theme}:{name: any, personName: any, theme: any}) {
+function getStyles({ name, personName, theme }: { name: any, personName: any, theme: any }) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -44,15 +44,15 @@ function getStyles({name, personName, theme}:{name: any, personName: any, theme:
         : theme.typography.fontWeightMedium,
   };
 }
- 
-function Paso2({handleNext} : {handleNext: (event: any) => any}) {
+
+function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const router = useRouter()
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     watch,
     setValue,
     reset,
@@ -72,7 +72,7 @@ function Paso2({handleNext} : {handleNext: (event: any) => any}) {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
-    setValue("participants",value)
+    setValue("participants", value)
   };
   // const theme1 = (theme: any) => createTheme({
   //   ...theme,
@@ -87,16 +87,16 @@ function Paso2({handleNext} : {handleNext: (event: any) => any}) {
   //     },
   //   }
   // });
- 
+
   return (
     <>
       <form className=' flex items-center gap-5 flex-col w-[450px] '
         onSubmit={handleSubmit(handleNext)}
       >
-        <FormControl fullWidth sx={{minWidth: 120}} size="small">
+        <FormControl fullWidth sx={{ minWidth: 120 }} size="small">
           <InputLabel color='primary'>Salon</InputLabel>
           <Select
-            sx={{fontWeight: "bold"}}
+            sx={{ fontWeight: "bold" }}
             defaultValue='Externa'
             color='primary'
             size='medium'
@@ -110,43 +110,43 @@ function Paso2({handleNext} : {handleNext: (event: any) => any}) {
         {errors.meeting_type && (
           <span className='text-red-700'>{errors.meeting_type.message}</span>
         )}
-      <FormControl fullWidth sx={{m: 1, minWidth: 120}}>
-        <InputLabel>Participantes</InputLabel>
-        <Select
-          id="demo-multiple-chip"
-          multiple
-          // Highlights
-          value={personName}
-          onChange={handleChange}
-          sx={{fontWeight: "bold"}}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected: any) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value: any) => (
-                <Chip Outlined  key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles({name, personName, theme})}
-            >
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        
-      </FormControl>
-        <Button 
+        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel>Participantes</InputLabel>
+          <Select
+            id="demo-multiple-chip"
+            multiple
+            // Highlights
+            value={personName}
+            onChange={handleChange}
+            sx={{ fontWeight: "bold" }}
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected: any) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value: any) => (
+                  <Chip Outlined key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {names.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles({ name, personName, theme })}
+              >
+                <Checkbox checked={personName.indexOf(name as never) > -1} />
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+
+        </FormControl>
+        <Button
           fullWidth
           className='h-12 bg-blue-500 text-xl'
           type='submit'
-          variant='contained' 
+          variant='contained'
           color='info'
         >
           Siguiente
@@ -154,10 +154,10 @@ function Paso2({handleNext} : {handleNext: (event: any) => any}) {
       </form>
 
       <Link href={'../SalonesDeConferencia'}>
-        <Button 
+        <Button
           className='h-12 mt-2 bg-white w-[450px] mb-5 text-xl'
-          type='submit' 
-          variant='text' 
+          type='submit'
+          variant='text'
           color='inherit'
         >
           Cancelar
