@@ -22,7 +22,7 @@ import Paso3 from '../component/ComponentesInputCrearCuentas/Paso3';
 type F = {
   room: string | number,
   date: string | null,
-  start_time:  null | Dayjs,
+  start_time: null | Dayjs,
   end_time: null | Dayjs,
   meeting_type: string,
   participants: [],
@@ -31,7 +31,7 @@ type F = {
   subject: string,
 }
 
-const steps = ['','','']
+const steps = ['', '', '']
 
 // activeStep === steps.length && router.push('../SalonesDeConferencia')
 
@@ -40,7 +40,7 @@ export default function CreacionReuniones() {
   const router = useRouter()
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
-  const [datosNuevos, setDatosNuevos]= useState({})
+  const [datosNuevos, setDatosNuevos] = useState({})
 
   const [datosCuentas, setDatosCuentas] = useState<F>({
     date: '',
@@ -53,10 +53,10 @@ export default function CreacionReuniones() {
     summary: '',
     subject: ''
   })
- console.log(datosCuentas)
+  console.log({ datosCuentas })
 
   const CrearReuniones = async (body: object) => {
-    const res = await axios.post('/meetings',body)
+    const res = await axios.post('/meetings', body)
     return res.data
   }
   const addNewReuniones = useMutation({
@@ -77,7 +77,8 @@ export default function CreacionReuniones() {
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
   };
-  const Next = (datos:object) => {
+  const Next = (datos: object) => {
+    console.log({ datos, datosCuentas })
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -85,25 +86,25 @@ export default function CreacionReuniones() {
     }
     setActiveStep(activeStep + 1);
     setSkipped(skipped);
-    setDatosCuentas({...datosCuentas,...datos})
-    
-    if (activeStep === steps.length-1) {
-       addNewReuniones.mutate({
+    setDatosCuentas({ ...datosCuentas, ...datos })
+
+    if (activeStep === steps.length - 1) {
+      addNewReuniones.mutate({
         ...datosCuentas,
         ...datos,
-        start_time: datosCuentas.start_time === null ? '': datosCuentas.start_time.format('HH:mm'),
-        end_time: datosCuentas.end_time === null ? '': datosCuentas.end_time.format('HH:mm'),
+        start_time: datosCuentas.start_time === null ? '' : datosCuentas.start_time.format('HH:mm'),
+        end_time: datosCuentas.end_time === null ? '' : datosCuentas.end_time.format('HH:mm'),
       });
       router.push('../SalonesDeConferencia')
     }
-  }  
+  }
 
-  const Back = (datos:object)=> {
-    console.log("hola")
-    setDatosCuentas({...datosCuentas,...datos})
+  const Back = (datos: object) => {
+    setDatosCuentas({ ...datosCuentas, ...datos })
+    console.log("back: ", { datosCuentas, datos })
     setActiveStep(activeStep - 1);
   }
-  // console.log(datosCuentas)
+  console.log({ datosCuentas })
 
 
   return (
@@ -119,43 +120,43 @@ export default function CreacionReuniones() {
           );
         })}
       </Stepper>
-      <Stack 
-        justifyContent={'center'} 
-        alignItems={'center'} 
+      <Stack
+        justifyContent={'center'}
+        alignItems={'center'}
         className=" w-100% gap-[15px] px-44 h-20 bg-[#0015ff4d]"
       >
-        <h1 className=' italic text-[20px] text-white font-semibold flex justify-center items-center'> 
+        <h1 className=' italic text-[20px] text-white font-semibold flex justify-center items-center'>
           Introduce los datos solicitados para la creación de tu reunión:
         </h1>
       </Stack>
       <Box>
-          {activeStep === 0 && 
-            <Paso1  
-              handleNext={Next}
-              date={datosCuentas.date}
-              start_time={datosCuentas.start_time}
-              end_time={datosCuentas.end_time}
-              room={datosCuentas.room}
-            />
-          }
-          {activeStep === 1 && 
-            <Paso2 
-              handleNext={Next}
-              DatosObtenidos={Back}
-              meeting_type={datosCuentas.meeting_type}
-              participants={datosCuentas.participants}
-            />
-          }
-          {activeStep === 2 && 
-            <Paso3 
-              handleNext={Next}
-              DatosObtenidos={Back}
-              details={datosCuentas.subject}
-              subject={datosCuentas.subject}
-              summary={datosCuentas.summary}
-            />
-          }
-        </Box>
+        {activeStep === 0 &&
+          <Paso1
+            handleNext={Next}
+            date={datosCuentas.date}
+            start_time={datosCuentas.start_time}
+            end_time={datosCuentas.end_time}
+            room={datosCuentas.room}
+          />
+        }
+        {activeStep === 1 &&
+          <Paso2
+            handleNext={Next}
+            DatosObtenidos={Back}
+            meeting_type={datosCuentas.meeting_type}
+            participants={datosCuentas.participants}
+          />
+        }
+        {activeStep === 2 &&
+          <Paso3
+            handleNext={Next}
+            DatosObtenidos={Back}
+            details={datosCuentas.subject}
+            subject={datosCuentas.subject}
+            summary={datosCuentas.summary}
+          />
+        }
+      </Box>
       {
         // activeStep != 0 && (
         //   <Button 
@@ -170,7 +171,7 @@ export default function CreacionReuniones() {
         // )
       }
     </Box>
-    
+
   );
 }
 

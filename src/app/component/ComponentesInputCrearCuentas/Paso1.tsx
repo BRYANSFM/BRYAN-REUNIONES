@@ -37,10 +37,17 @@ type F = {
   end_time: null | Dayjs,
 }
 
-function Paso1({ handleNext, date, end_time, room, start_time } : F) {
+function Paso1({ handleNext, date, end_time, room, start_time }: F) {
 
   const schema = z.object({
     room: z.number().min(1, { message: 'This field is required' }),
+    date: z.string().min(1, { message: 'debes llenar eto' }),
+    start_time: z.any().refine((val: any) => val, {
+      message: "This field is required",
+    }),
+    end_time: z.any().refine((val: any) => val, {
+      message: "This field is required",
+    }),
   })
 
   const outerTheme = useTheme();
@@ -48,6 +55,7 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
     queryKey: ['rooms'],
     queryFn: getRooms,
   });
+  console.log({ date })
   const {
     register,
     handleSubmit,
@@ -56,7 +64,7 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
     setValue,
     reset,
   } = useForm({
-    // resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     defaultValues: {
       room: room,
       date: date,
@@ -64,7 +72,7 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
       end_time: end_time,
     }
   });
-  console.log(errors)
+  console.log(watch())
 
   const theme = (theme: any) => createTheme({
     ...theme,
@@ -86,7 +94,7 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
 
   return (
     <>
-    <pre>{JSON.stringify(watch(), null, 2)}</pre>
+      <pre>{JSON.stringify(watch(), null, 2)}</pre>
       <form className=' flex gap-5 flex-col w-[450px]'
         onSubmit={handleSubmit(handleNext)}
       >
@@ -124,7 +132,7 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['DatePicker']}>
               <DatePicker
-                defaultValue={date === "" ? null: dayjs(date)}
+                defaultValue={date === "" ? null : dayjs(date)}
                 sx={{ width: "100%" }}
                 label="Hora"
                 // {...register('date', {
@@ -144,13 +152,13 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
               />
             </DemoContainer>
           </LocalizationProvider>
-          {/* {errors.date && (
+          {errors.date && (
             <span className='text-red-700'>{errors.date.message}</span>
-          )} */}
+          )}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
-                defaultValue={start_time === null ? null: dayjs(start_time)}
+                defaultValue={start_time === null ? null : dayjs(start_time)}
                 sx={{ width: "100%" }}
                 label="Hora de inicio"
                 // {...register('start_time', {
@@ -169,16 +177,16 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
               />
             </DemoContainer>
           </LocalizationProvider>
-          {/* {errors.start_time && (
+          {errors.start_time && (
             <span className='text-red-700'>{errors.start_time.message}</span>
-          )} */}
+          )}
         </ThemeProvider>
 
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
-                defaultValue={end_time === null ? null: dayjs(end_time)}
+                defaultValue={end_time === null ? null : dayjs(end_time)}
                 sx={{ width: "100%" }}
                 label="Hora de cierre"
                 // {...register('end_time', {
@@ -197,9 +205,9 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
               />
             </DemoContainer>
           </LocalizationProvider>
-          {/* {errors.end_time && (
+          {errors.end_time && (
             <span className='text-red-700'>{errors.end_time.message}</span>
-          )} */}
+          )}
         </ThemeProvider>
         <Button
           fullWidth
@@ -212,14 +220,14 @@ function Paso1({ handleNext, date, end_time, room, start_time } : F) {
         </Button>
       </form>
       <Link href={'../SalonesDeConferencia'}>
-      <Button
-        className='h-12 mt-5  w-[450px]  text-xl'
-        type='submit'
-        variant='outlined'
-        color='inherit'
-      >
-        Cancelar
-      </Button>
+        <Button
+          className='h-12 mt-5  w-[450px]  text-xl'
+          type='submit'
+          variant='outlined'
+          color='inherit'
+        >
+          Cancelar
+        </Button>
       </Link>
     </>
   )
