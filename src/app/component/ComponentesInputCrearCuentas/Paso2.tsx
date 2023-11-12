@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import { Button, Box } from '@mui/material';
+import { Button, Box, Stack } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import { useForm } from 'react-hook-form';
 import Checkbox from '@mui/material/Checkbox';
@@ -12,6 +12,7 @@ import Link from 'next/link';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useTheme } from '@mui/material/styles'
 import { useState } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 const ITEM_HEIGHT = 48;
@@ -45,9 +46,16 @@ function getStyles({ name, personName, theme }: { name: any, personName: any, th
   };
 }
 
-function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
+type F = {
+  handleNext: (event: any) => any,
+  DatosObtenidos: (event: any) => any,
+  meeting_type: string,
+  participants: string | [],
+}
+
+function Paso2({ handleNext,DatosObtenidos, meeting_type, participants }: F) {
   const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
+  const [personName, setPersonName] = useState(participants);
   const router = useRouter()
   const {
     register,
@@ -58,8 +66,8 @@ function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
     reset,
   } = useForm({
     defaultValues: {
-      meeting_type: "Externa",
-      participants: '',
+      meeting_type: meeting_type,
+      participants: participants,
     }
   });
   console.log(errors)
@@ -91,13 +99,13 @@ function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
   return (
     <>
       <form className=' flex items-center gap-5 flex-col w-[450px] '
-        onSubmit={handleSubmit(handleNext)}
+        onSubmit={handleSubmit((e)=> handleNext(e))}
       >
         <FormControl fullWidth sx={{ minWidth: 120 }} size="small">
           <InputLabel color='primary'>Salon</InputLabel>
           <Select
+            defaultValue={meeting_type}
             sx={{ fontWeight: "bold" }}
-            defaultValue='Externa'
             color='primary'
             size='medium'
             label="Tipo de Reunion"
@@ -107,12 +115,13 @@ function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
             <MenuItem value='Interna'>Interna</MenuItem>
           </Select>
         </FormControl>
-        {errors.meeting_type && (
+        {/* {errors.meeting_type && (
           <span className='text-red-700'>{errors.meeting_type.message}</span>
-        )}
+        )} */}
         <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
           <InputLabel>Participantes</InputLabel>
           <Select
+            defaultValue={participants}
             id="demo-multiple-chip"
             multiple
             // Highlights
@@ -153,18 +162,28 @@ function Paso2({ handleNext }: { handleNext: (event: any) => any }) {
         </Button>
       </form>
 
-      <Link href={'../SalonesDeConferencia'}>
-        <Button
-          className='h-12 mt-2 bg-white w-[450px] mb-5 text-xl'
-          type='submit'
-          variant='text'
-          color='inherit'
+      <Stack flexDirection={'row'} justifyContent={'center'} alignItems={'center'}  className='mb-6  mt-4 gap-5 w-[450px]'>
+        <Button 
+          variant='outlined'
+          color='warning'
+          className='w-[50%] h-12 text-xl gap-4'
+          onClick={() => DatosObtenidos(watch())}
         >
-          Cancelar
+          <ArrowBackIcon/>
+          Atras
         </Button>
-      </Link>
+        <Link className='h-12  w-[50%]' href={'../SalonesDeConferencia'}>
+          <Button
+            className='h-[100%]  w-[100%]  text-xl'
+            type='submit'
+            variant='outlined'
+            color='inherit'
+          >
+            Cancelar
+          </Button>
+        </Link>
+      </Stack>
       {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
-      {/* <pre className='text-orange-600'>{JSON.stringify(personName, null, 2)}</pre> */}
     </>
   )
 }

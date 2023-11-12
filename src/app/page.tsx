@@ -33,7 +33,7 @@ export default function Home() {
   }, [addIniciarSesion.isPending])
 
   return (
-    <div className=" w-[400px] min-h-[300px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white p-[30px]  ">
+    <div className=" w-[450px] min-h-[300px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center bg-white p-[30px]">
       <FormularioLOGIN
         Datos={(data) => addIniciarSesion.mutate({ body: data })}
       />
@@ -42,7 +42,7 @@ export default function Home() {
         <Button 
           color="secondary"
           className="text-[#808080] text-[19px] font-bold mt-[20px]">
-          or, sign up
+            Registrarse
         </Button>
       </Link>
     </div>

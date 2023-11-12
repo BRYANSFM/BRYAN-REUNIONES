@@ -23,12 +23,12 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
   return (
     <>
       <form  onSubmit={handleSubmit(Datos)}>
-      <h1 className="font-bold text-dec underline underline-offset-2 text-[50px]"> Log in </h1>
+      <h1 className="font-bold text-dec underline underline-offset-2 text-[50px]"> Inicio de Sesion </h1>
         
         <TextField
           margin="dense"  
           fullWidth
-          label="Email" 
+          label="Correo electrónico" 
           color="success"
           size='small'
           error={errors?.email ? true : false} 
@@ -37,11 +37,11 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
           {...register('email', {
             required: {
               value: true,
-              message: 'Email is required',
+              message: 'Correo electrónico requerido',
             },
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Invalid email',
+              message: 'Correo electrónico inválido',
             },
           })}
         />
@@ -49,7 +49,7 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
         <TextField
           margin="dense"  
           fullWidth
-          label="Password" 
+          label="Contraseña" 
           type='password'
           error={errors?.password ? true : false} 
           helperText={errors.password && errors.password.message } 
@@ -58,7 +58,7 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
           {...register('password',{
             required: {
               value: true,
-              message: 'Password is required',
+              message: 'Contraseña requerida',
             }
           })}
         /> 
@@ -68,7 +68,7 @@ const FormularioLOGIN = ({ Datos} : {Datos: (event: any) => any}) => {
           fullWidth
           type='submit'
           className="p-2 text-green-600 h-[50px]  text-[25px] font-bold mt-[10px] flex justify-center items-center">
-          Log in
+          Iniciar Sesion
         </Button>
       </form>
     </>
