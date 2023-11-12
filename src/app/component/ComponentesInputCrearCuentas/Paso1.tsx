@@ -134,7 +134,7 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
               <DatePicker
                 defaultValue={date === "" ? null : dayjs(date)}
                 sx={{ width: "100%" }}
-                label="Hora"
+                label="Fecha"
                 // {...register('date', {
                 //   // required: {
                 //   //   value: true,
