@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, Stack } from '@mui/material';
 import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useRouter } from 'next/navigation';
@@ -13,9 +13,17 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 import { useForm } from 'react-hook-form';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+type F = {
+  handleNext: (event: any) => any,
+  DatosObtenidos: (event: any) => any,
+  details: string,
+  summary: string,
+  subject: string,
+}
 
-function Paso3({handleNext} : {handleNext: (event: any) => any}) {
+function Paso3({handleNext, DatosObtenidos, details, summary, subject} : F) {
   const {
     register,
     handleSubmit,
@@ -25,9 +33,9 @@ function Paso3({handleNext} : {handleNext: (event: any) => any}) {
     reset,
   } = useForm({
     defaultValues: {
-      subject: '',
-      summary: '',
-      details: '',
+      subject: subject,
+      summary: summary,
+      details: details,
     }
   });
   console.log(errors)
@@ -105,16 +113,28 @@ function Paso3({handleNext} : {handleNext: (event: any) => any}) {
           Crear
         </Button>
         
-        <Button 
-          fullWidth
-          className='h-12 mt-2 bg-white text-xl'
-          type='submit' 
-          variant='text' 
-          color='inherit'
-        >
-          Cancelar
-        </Button>
       </form>
+      <Stack flexDirection={'row'} justifyContent={'center'} alignItems={'center'}  className=' mt-4 mb-6 gap-5 w-[450px]'>
+        <Button 
+          variant='outlined'
+          color='warning'
+          className='w-[50%] h-12 text-xl gap-4'
+          onClick={() => DatosObtenidos(watch())}
+        >
+          <ArrowBackIcon/>
+          Atras
+        </Button>
+        <Link className='h-12  w-[50%]' href={'../SalonesDeConferencia'}>
+          <Button
+            className='h-[100%]  w-[100%]  text-xl'
+            type='submit'
+            variant='outlined'
+            color='inherit'
+          >
+            Cancelar
+          </Button>
+        </Link>
+      </Stack>
       {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
     </ThemeProvider>
   )

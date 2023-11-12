@@ -45,7 +45,7 @@ function CrearUsuario() {
         <Button
           color="secondary"
           className="text-[#808080] mt-[10px] text-[19px] font-bold  text-center">
-          return to login
+          volver al Inicio de sesión
         </Button>
       </Link>
 

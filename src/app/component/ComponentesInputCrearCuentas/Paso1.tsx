@@ -20,6 +20,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { useState } from 'react';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RouteModule } from 'next/dist/server/future/route-modules/route-module';
 
 const getRooms = async () => {
   const res = await axios.get('/meeting-rooms',);
@@ -28,7 +29,15 @@ const getRooms = async () => {
   return data
 }
 
-function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
+type F = {
+  handleNext: (event: any) => any,
+  room: string | number,
+  date: string | null,
+  start_time: null | Dayjs,
+  end_time: null | Dayjs,
+}
+
+function Paso1({ handleNext, date, end_time, room, start_time } : F) {
 
   const schema = z.object({
     room: z.number().min(1, { message: 'This field is required' }),
@@ -49,10 +58,10 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
   } = useForm({
     // resolver: zodResolver(schema),
     defaultValues: {
-      room: '',
-      date: null,
-      start_time: null,
-      end_time: null,
+      room: room,
+      date: date,
+      start_time: start_time,
+      end_time: end_time,
     }
   });
   console.log(errors)
@@ -77,6 +86,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
 
   return (
     <>
+    <pre>{JSON.stringify(watch(), null, 2)}</pre>
       <form className=' flex gap-5 flex-col w-[450px]'
         onSubmit={handleSubmit(handleNext)}
       >
@@ -84,7 +94,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
           <InputLabel color='primary'>room</InputLabel>
           <Select
             sx={{ fontWeight: "bold" }}
-            defaultValue={20}
+            defaultValue={room}
             color='primary'
             size='medium'
             id="demo-select-small"
@@ -114,6 +124,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['DatePicker']}>
               <DatePicker
+                defaultValue={date === "" ? null: dayjs(date)}
                 sx={{ width: "100%" }}
                 label="Hora"
                 // {...register('date', {
@@ -139,6 +150,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
+                defaultValue={start_time === null ? null: dayjs(start_time)}
                 sx={{ width: "100%" }}
                 label="Hora de inicio"
                 // {...register('start_time', {
@@ -150,7 +162,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
                 // })}
                 onChange={(e: any) => {
                   if (e != null) {
-                    setValue("start_time", e.format('HH:mm'))
+                    setValue("start_time", e)
                     // console.log(watch('date').format('HH:mm'))
                   }
                 }}
@@ -166,6 +178,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
+                defaultValue={end_time === null ? null: dayjs(end_time)}
                 sx={{ width: "100%" }}
                 label="Hora de cierre"
                 // {...register('end_time', {
@@ -177,7 +190,7 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
                 // })}
                 onChange={(e: any) => {
                   if (e != null) {
-                    setValue("end_time", e.format('HH:mm'))
+                    setValue("end_time", e)
                     // console.log(watch('date').format('HH:mm'))
                   }
                 }}
@@ -199,16 +212,15 @@ function Paso1({ handleNext }: { handleNext: (event: any) => any }) {
         </Button>
       </form>
       <Link href={'../SalonesDeConferencia'}>
-        <Button
-          className='h-12 bg-white w-[450px] mb-5 mt-2 text-xl'
-          type='submit'
-          variant='text'
-          color='inherit'
-        >
-          Cancelar
-        </Button>
+      <Button
+        className='h-12 mt-5  w-[450px]  text-xl'
+        type='submit'
+        variant='outlined'
+        color='inherit'
+      >
+        Cancelar
+      </Button>
       </Link>
-      {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
     </>
   )
 }

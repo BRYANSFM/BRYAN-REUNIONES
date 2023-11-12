@@ -1,12 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 import { ValidarUsuario } from "@/app/api/FuncionesConsultasAPI";
-import { useQuery, useMutation } from '@tanstack/react-query'
+import {  useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form';
-import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import { PinInput, PinInputField, HStack } from '@chakra-ui/react'
 
@@ -15,10 +14,7 @@ function Autenticar() {
   const [code, setCode] = useState('')
   const router = useRouter();
   const { autenticar } = useParams();
-  const [codigo, setCodigo] = useState("");
   const [id, setId] = useState<string>('');
-  const ClaseInput = ' p-[15px] h-[30px] w-full rounded-[5px] outline outline-[2px] outline-gray-300 placeholder:text-slate-600 focus:outline-lime-400 focus:outline-[2px]'
-  const ClaseSpan = "text-[red] text-[15px] block"
 
   const {
     register,
@@ -49,10 +45,10 @@ function Autenticar() {
   return (
     <div className=" w-[600px] min-h-[350px] shadow-3xl rounded-[20px] flex flex-col items-center justify-center   bg-white px-[40px] pb-[10px] pt-[10px] gap-[10px]" >
       <h1 className=" text-[39px] font-bold underline underline-offset-[3px]">
-        Account authentication
+        Autenticar Cuenta
       </h1>
       <h1 className=" text-[20px] font-bold text-green-600 text-center">
-        For security, a code was sent to your email to verify your identity.
+        Se envió un código a su correo electrónico para verificar su identidad.
       </h1>
       <div className="flex flex-col items-center justify-center">
         <div className="flex gap-3" >

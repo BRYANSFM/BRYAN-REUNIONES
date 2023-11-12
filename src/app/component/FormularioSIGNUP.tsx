@@ -21,7 +21,7 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
   return (
     <>
       <div className="flex">
-        <h1 className="font-bold text-dec underline underline-offset-2 text-[50px]"> Sign up </h1>
+        <h1 className="font-bold text-dec underline underline-offset-2 text-[50px]"> Registrarse </h1>
       </div>
       <Button />
       <form className='' onSubmit={handleSubmit(Datos)}>
@@ -29,136 +29,136 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
         <TextField
           margin="dense"
           fullWidth
-          label="Firstname"
+          label="Nombre"
           type='text'
-          error={errors?.firstname ? true : false}
-          helperText={errors.firstname && errors.firstname.message}
+          error={errors?.Nombre ? true : false}
+          helperText={(errors.Nombre && errors.Nombre.message != undefined ) && errors.Nombre.message.toString()}
           color="success"
           size='small'
-          {...register('firstname', {
+          {...register('Nombre', {
             required: {
               value: true,
-              message: 'Firstname is required',
+              message: 'Nombre requerido',
             },
             minLength: {
               value: 2,
-              message: 'Must be at least 2 characters',
+              message: 'Debe tener al menos 2 caracteres',
             },
             maxLength: {
               value: 10,
-              message: 'Must have a maximum of 10 characters',
+              message: 'Debe tener un máximo de 10 caracteres',
             },
           })}
         />
 
 
-        {/* Lastname */}
+        {/* Apellido */}
         <TextField
           margin="dense"
           fullWidth
-          label="Lastname"
+          label="Apellido"
           type='text'
           error={errors?.lastname ? true : false}
-          helperText={errors.lastname && errors.lastname.message}
+          helperText={(errors.lastname && errors.lastname.message != undefined ) && errors.lastname.message.toString()}
           color="success"
           size='small'
           {...register('lastname', {
             required: {
               value: true,
-              message: 'Lastname is required',
+              message: 'Apellido es requerido',
             },
           })}
         />
 
 
-        {/* Email */}
+        {/* Correo electrónico */}
         <TextField
           margin="dense"
           fullWidth
-          label="Email"
+          label="Correo electrónico"
           type='text'
           error={errors?.email ? true : false}
-          helperText={errors.email && errors.email.message}
+          helperText={(errors.email && errors.email.message != undefined ) && errors.email.message.toString()}
           color="success"
           size='small'
           {...register('email', {
             required: {
               value: true,
-              message: 'Email is required',
+              message: 'Correo electrónico requerido',
             },
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Invalid email',
+              message: 'Correo electronico invalido',
             },
           })}
         />
 
-        {/* Password */}
+        {/* Contraseña*/}
         <TextField
           margin="dense"
           fullWidth
-          label="Password"
+          label="Contraseña"
           type='password'
           error={errors?.password ? true : false}
-          helperText={errors.password && errors.password.message}
+          helperText={(errors.password && errors.password.message != undefined ) && errors.password.message.toString()}
           color="success"
           size='small'
           {...register('password', {
             required: {
               value: true,
-              message: 'Password is required',
+              message: 'Contraseña requerida',
             }
           })}
         />
-        {/* PasswordConfirmation */}
+        {/* Confirmar Contraseña */}
         <TextField
           margin="dense"
           fullWidth
-          label="Password Confirmation"
+          label="Confirmar Contraseña"
           type='password'
           error={errors?.passwordConfirmation ? true : false}
-          helperText={errors.passwordConfirmation && errors.passwordConfirmation.message}
+          helperText={(errors.passwordConfirmation && errors.passwordConfirmation.message != undefined ) && errors.passwordConfirmation.message.toString()}
           color="success"
           size='small'
           {...register('passwordConfirmation', {
             required: {
               value: true,
-              message: 'Password is required',
+              message: 'Confirmar Contraseña requerido',
             },
             validate: (value: any) => value === watch('password') || 'It must be the same as the password',
           })}
         />
-        {/* Position */}
+        {/* Posicion */}
         <TextField
           margin="dense"
           fullWidth
-          label="Position"
+          label="Posición"
           type='text'
           error={errors?.position ? true : false}
-          helperText={errors.position && errors.position.message}
+          helperText={(errors.position && errors.position.message != undefined ) && errors.position.message.toString()}
           color="success"
           size='small'
           {...register('position', {
             required: {
               value: true,
-              message: 'Position is required',
+              message: 'Posición requerido',
             },
           })}
         />
-        {/* Institution */}
+        {/* Institución */}
         <TextField
           margin="dense"
           fullWidth
-          label="Institution"
+          label="Institución"
           type='text'
           error={errors?.institution ? true : false}
-          helperText={errors.institution && errors.institution.message}
+          helperText={(errors.institution && errors.institution.message != undefined ) && errors.institution.message.toString()}
           color="success"
           size='small'
           {...register('institution', {
             required: {
               value: true,
-              message: 'Institution is required',
+              message: 'Institución requerido',
             },
           })}
         />
@@ -167,7 +167,7 @@ export const FormularioSIGNUP = ({ Datos }: { Datos: (event: {}) => any }) => {
           color="success"
           type="submit"
           className=" mt-[10px] p-2 text-[23px] text-green-600 w-full h-[50px] flex justify-center items-center">
-          Sign up
+          Registrarse
         </Button>
       </form>
     </>
