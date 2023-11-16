@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -38,24 +38,23 @@ type F = {
 }
 
 function Paso1({ handleNext, date, end_time, room, start_time }: F) {
-
   const schema = z.object({
-    room: z.number().min(1, { message: 'This field is required' }),
-    date: z.string().min(1, { message: 'debes llenar eto' }),
+    room: z.number().min(1, { message: 'Salon es requerido' }),
+    date: z.string().min(1, { message: 'Fecha requerida' }),
     start_time: z.any().refine((val: any) => val, {
-      message: "This field is required",
+      message: "Hora de inicio requerida",
     }),
     end_time: z.any().refine((val: any) => val, {
-      message: "This field is required",
+      message: "Hora de cierre requerida",
     }),
   })
-
+  
   const outerTheme = useTheme();
   const { isLoading, data, isError, error, refetch, } = useQuery({
     queryKey: ['rooms'],
     queryFn: getRooms,
   });
-  console.log({ date })
+  
   const {
     register,
     handleSubmit,
@@ -72,7 +71,6 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
       end_time: end_time,
     }
   });
-  console.log(watch())
 
   const theme = (theme: any) => createTheme({
     ...theme,
@@ -94,12 +92,12 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
 
   return (
     <>
-      <pre>{JSON.stringify(watch(), null, 2)}</pre>
+      {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
       <form className=' flex gap-5 flex-col w-[450px]'
         onSubmit={handleSubmit(handleNext)}
       >
         <FormControl fullWidth sx={{ minWidth: 120 }} size="small">
-          <InputLabel color='primary'>room</InputLabel>
+          <InputLabel color='primary'>Salon</InputLabel>
           <Select
             sx={{ fontWeight: "bold" }}
             defaultValue={room}
@@ -149,18 +147,20 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
                     // console.log(watch('date').format('YYYY-MM-DD'))
                   }
                 }}
+                
               />
             </DemoContainer>
           </LocalizationProvider>
-          {errors.date && (
+          {/* {errors.date && (
             <span className='text-red-700'>{errors.date.message}</span>
-          )}
+          )} */}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
                 defaultValue={start_time === null ? null : dayjs(start_time)}
                 sx={{ width: "100%" }}
                 label="Hora de inicio"
+                disabled={!watch("date")}
                 // {...register('start_time', {
                 //   // required: {
                 //   //   value: true,
@@ -189,6 +189,7 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
                 defaultValue={end_time === null ? null : dayjs(end_time)}
                 sx={{ width: "100%" }}
                 label="Hora de cierre"
+                disabled={!watch("date")}
                 // {...register('end_time', {
                 //   // required: {
                 //   //   value: true,

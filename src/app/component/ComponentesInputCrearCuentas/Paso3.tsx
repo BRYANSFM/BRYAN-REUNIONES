@@ -14,6 +14,8 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 import { useForm } from 'react-hook-form';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type F = {
   handleNext: (event: any) => any,
@@ -24,6 +26,12 @@ type F = {
 }
 
 function Paso3({handleNext, DatosObtenidos, details, summary, subject} : F) {
+  const schema = z.object({
+    subject: z.string().min(1, { message: 'Asunto es requerido' }),
+    summary: z.string().min(1, { message: 'Resumen/Temas requerida' }),
+    details: z.string().min(1, { message: 'Detalles principales requerida' }),
+
+  })
   const {
     register,
     handleSubmit,
@@ -32,6 +40,7 @@ function Paso3({handleNext, DatosObtenidos, details, summary, subject} : F) {
     setValue,
     reset,
   } = useForm({
+    resolver: zodResolver(schema),
     defaultValues: {
       subject: subject,
       summary: summary,
@@ -66,12 +75,7 @@ function Paso3({handleNext, DatosObtenidos, details, summary, subject} : F) {
           className='text-blue'
           fullWidth
           label="Asunto"
-          {...register('subject', {
-            required: {
-              value: true,
-              message: 'El asunto es requerido',
-            },
-          })}
+          {...register('subject')}
         />
         <TextField
           multiline
@@ -81,27 +85,17 @@ function Paso3({handleNext, DatosObtenidos, details, summary, subject} : F) {
           error={errors?.summary ? true : false} 
           helperText={errors.summary && errors.summary.message}
           label="Resumen/Temas"
-          {...register('summary', {
-            required: {
-              value: true,
-              message: 'Resumen/Temas es requerido',
-            },
-          })}
+          {...register('summary')}
         />
         <TextField
-          label="Resumen/Temas"
+          label="Detalles principales"
           multiline
           fullWidth
           rows={10}
           maxRows={10}
           error={errors?.details ? true : false} 
           helperText={errors.details && errors.details.message}
-          {...register('details', {
-            required: {
-              value: true,
-              message: 'Detalles Principales es requerido',
-            },
-          })}
+          {...register('details')}
         />
         <Button 
           fullWidth
