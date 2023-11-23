@@ -109,7 +109,6 @@ export default function CreacionReuniones() {
 
   return (
     <Box className=" flex justify-center items-center flex-col gap-6" sx={{ width: '100%' }}>
-      {/* <pre className='text-lg text-red-500'>{JSON.stringify(datosCuentas, null, 2)}</pre> */}
       <Stepper className='w-56  h-20 flex justify-center items-center' alternativeLabel activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -157,19 +156,6 @@ export default function CreacionReuniones() {
           />
         }
       </Box>
-      {
-        // activeStep != 0 && (
-        //   <Button 
-        //     variant='outlined'
-        //     onClick={()=>{
-        //       setDatosCuentas({...datosCuentas,...datosNuevos})
-        //       setActiveStep(activeStep-1)
-        //     }}
-        //   >
-        //     atras
-        //   </Button>
-        // )
-      }
     </Box>
 
   );

@@ -92,7 +92,6 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
 
   return (
     <>
-      {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
       <form className=' flex gap-5 flex-col w-[450px]'
         onSubmit={handleSubmit(handleNext)}
       >
@@ -133,27 +132,17 @@ function Paso1({ handleNext, date, end_time, room, start_time }: F) {
                 defaultValue={date === "" ? null : dayjs(date)}
                 sx={{ width: "100%" }}
                 label="Fecha"
-                // {...register('date', {
-                //   // required: {
-                //   //   value: true,
-                //   //   message: 'date es requerida',
-                //   // },
-                //   // validate: (value) => value != null || 'date is required',
-                // })}
-                // value={pruebadate}
                 onChange={(e: any) => {
                   if (e != null) {
                     setValue("date", e.format('YYYY-MM-DD'))
-                    // console.log(watch('date').format('YYYY-MM-DD'))
                   }
                 }}
-                
               />
             </DemoContainer>
           </LocalizationProvider>
-          {/* {errors.date && (
+          {errors.date && (
             <span className='text-red-700'>{errors.date.message}</span>
-          )} */}
+          )}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx={{ width: "100%" }} components={['TimePicker']}>
               <TimePicker
